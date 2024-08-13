@@ -8,15 +8,11 @@ class Expense {
     this.date = date;
   }
 
-  async save() {
-    const db = await IndexedDB.init();
-
-    try {
-      const id = await db.addRecord("expenses", this);
-      alert(`Record added with ID: ${id}`);
-    } catch (error) {
-      console.error("Add record error:", error);
-    }
+  save() {
+    return IndexedDB.init()
+      .then((db) => db.addRecord("expenses", this))
+      .then((id) => alert(`Record added with ID: ${id}`))
+      .catch((error) => console.error("Add record error:", error));
   }
 }
 

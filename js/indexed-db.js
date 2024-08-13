@@ -3,14 +3,17 @@ const IndexedDB = (() => {
 
   const openDB = () => {
     return new Promise((resolve, reject) => {
+      if (db) {
+        return resolve(db);
+      }
+
       const request = indexedDB.open("DailyNotes", 1);
 
       request.onupgradeneeded = (event) => {
         db = event.target.result;
-        let objectStore;
 
         if (!db.objectStoreNames.contains("expenses")) {
-          objectStore = db.createObjectStore("expenses", {
+          const objectStore = db.createObjectStore("expenses", {
             keyPath: "id",
             autoIncrement: true,
           });
@@ -36,26 +39,19 @@ const IndexedDB = (() => {
       const store = transaction.objectStore(storeName);
       const request = store.add(data);
 
-      request.onsuccess = () => {
-        resolve(request.result);
-      };
-
-      request.onerror = (event) => {
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = (event) =>
         reject(`Add error: ${event.target.errorCode}`);
-      };
     });
   };
 
-  const init = async () => {
-    await openDB();
-    return {
+  const init = () => {
+    return openDB().then(() => ({
       addRecord,
-    };
+    }));
   };
 
-  return {
-    init,
-  };
+  return { init };
 })();
 
 export default IndexedDB;
