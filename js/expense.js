@@ -1,4 +1,4 @@
-import IndexedDB from "./indexed-db.js";
+import dbHandler from "./indexed-db.js";
 
 class Expense {
   constructor(itemName, price, category, date) {
@@ -9,19 +9,17 @@ class Expense {
   }
 
   save() {
-    return IndexedDB.init()
-      .then((db) => db.addRecord("expenses", this))
+    return dbHandler
+      .addRecord("expenses", this)
       .then((id) => `Record added with ID: ${id}`)
       .catch((error) => `Add record error: ${error}`);
   }
 
   static all() {
-    return IndexedDB.init()
-      .then((db) => db.getAllRecord("expenses"))
-      .then((records) => {
-        return records;
-      })
-      .catch((error) => console.error("Fetch all records error:", error));
+    return dbHandler
+      .getAllRecords("expenses")
+      .then((records) => records)
+      .catch((error) => `Fetch all records error: ${error}`);
   }
 }
 

@@ -1,39 +1,41 @@
-const IndexedDB = (() => {
-  let db;
+class IndexedDBHandler {
+  constructor(dbName, version) {
+    this.dbName = dbName;
+    this.version = version;
+    this.db = null;
+  }
 
-  const openDB = () => {
+  async openDB() {
+    if (this.db) return this.db;
+
     return new Promise((resolve, reject) => {
-      if (db) {
-        return resolve(db);
-      }
-
-      const request = indexedDB.open("DailyNotes", 1);
+      const request = indexedDB.open(this.dbName, this.version);
 
       request.onupgradeneeded = (event) => {
-        db = event.target.result;
-
+        const db = event.target.result;
         if (!db.objectStoreNames.contains("expenses")) {
-          const objectStore = db.createObjectStore("expenses", {
+          const store = db.createObjectStore("expenses", {
             keyPath: "id",
             autoIncrement: true,
           });
-          objectStore.createIndex("date", "date", { unique: false });
-          objectStore.createIndex("category", "category", { unique: false });
+          store.createIndex("date", "date", { unique: false });
+          store.createIndex("category", "category", { unique: false });
         }
       };
 
       request.onsuccess = (event) => {
-        db = event.target.result;
-        resolve(db);
+        this.db = event.target.result;
+        resolve(this.db);
       };
 
       request.onerror = (event) => {
         reject(`Database error: ${event.target.errorCode}`);
       };
     });
-  };
+  }
 
-  const addRecord = (storeName, data) => {
+  async addRecord(storeName, data) {
+    const db = await this.openDB();
     return new Promise((resolve, reject) => {
       const transaction = db.transaction([storeName], "readwrite");
       const store = transaction.objectStore(storeName);
@@ -43,11 +45,12 @@ const IndexedDB = (() => {
       request.onerror = (event) =>
         reject(`Add error: ${event.target.errorCode}`);
     });
-  };
+  }
 
-  const getAllRecord = (storeName) => {
+  async getAllRecords(storeName) {
+    const db = await this.openDB();
     return new Promise((resolve, reject) => {
-      const transaction = db.transaction([storeName]);
+      const transaction = db.transaction([storeName], "readonly");
       const store = transaction.objectStore(storeName);
       const request = store.getAll();
 
@@ -55,16 +58,8 @@ const IndexedDB = (() => {
       request.onerror = (event) =>
         reject(`GetAll error: ${event.target.errorCode}`);
     });
-  };
+  }
+}
 
-  const init = () => {
-    return openDB().then(() => ({
-      addRecord,
-      getAllRecord,
-    }));
-  };
-
-  return { init };
-})();
-
-export default IndexedDB;
+const dbHandler = new IndexedDBHandler("DailyNotes", 1);
+export default dbHandler;

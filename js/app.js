@@ -1,6 +1,6 @@
 import Expense from "./expense.js";
 
-const addRecord = (event) => {
+const addRecord = async (event) => {
   event.preventDefault();
   const itemName = document.getElementById("itemName").value;
   const price = document.getElementById("price").value;
@@ -8,9 +8,8 @@ const addRecord = (event) => {
   const category = document.getElementById("category").value;
 
   const expense = new Expense(itemName, price, category, date);
-  expense.save().then((message) => {
-    alert(message);
-  });
+  const message = await expense.save();
+  alert(message);
 };
 
 const fetchAll = async () => {
