@@ -8,7 +8,19 @@ const addRecord = (event) => {
   const category = document.getElementById("category").value;
 
   const expense = new Expense(itemName, price, category, date);
-  expense.save();
+  expense.save().then((message) => {
+    alert(message);
+  });
+};
+
+const fetchAll = async () => {
+  const expenses = await Expense.all();
+  document.getElementById("allRecordsDisplay").innerText = JSON.stringify(
+    expenses,
+    null,
+    2
+  );
 };
 
 document.getElementById("expensesForm").addEventListener("submit", addRecord);
+document.getElementById("getAllButton").addEventListener("click", fetchAll);

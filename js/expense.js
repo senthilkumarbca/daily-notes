@@ -11,8 +11,17 @@ class Expense {
   save() {
     return IndexedDB.init()
       .then((db) => db.addRecord("expenses", this))
-      .then((id) => alert(`Record added with ID: ${id}`))
-      .catch((error) => console.error("Add record error:", error));
+      .then((id) => `Record added with ID: ${id}`)
+      .catch((error) => `Add record error: ${error}`);
+  }
+
+  static all() {
+    return IndexedDB.init()
+      .then((db) => db.getAllRecord("expenses"))
+      .then((records) => {
+        return records;
+      })
+      .catch((error) => console.error("Fetch all records error:", error));
   }
 }
 

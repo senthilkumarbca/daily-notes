@@ -45,9 +45,22 @@ const IndexedDB = (() => {
     });
   };
 
+  const getAllRecord = (storeName) => {
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName]);
+      const store = transaction.objectStore(storeName);
+      const request = store.getAll();
+
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = (event) =>
+        reject(`GetAll error: ${event.target.errorCode}`);
+    });
+  };
+
   const init = () => {
     return openDB().then(() => ({
       addRecord,
+      getAllRecord,
     }));
   };
 
