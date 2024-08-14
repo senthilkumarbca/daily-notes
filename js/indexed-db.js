@@ -88,6 +88,20 @@ class IndexedDBHandler {
         reject(`Update error: ${event.target.errorCode}`);
     });
   }
+
+  async deleteRecord(storeName, id) {
+    const db = await this.openDB();
+    console.log("inside delete ", id);
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], "readwrite");
+      const store = transaction.objectStore(storeName);
+      const request = store.delete(id);
+
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = (event) =>
+        reject(`Delete error: ${event.target.errorCode}`);
+    });
+  }
 }
 
 const dbHandler = new IndexedDBHandler("DailyNotes", 1);

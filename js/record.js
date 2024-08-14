@@ -35,6 +35,13 @@ class Record {
       .then((id) => `Record with ID: ${id} updated`)
       .catch((error) => `Update record error: ${error}`);
   }
+
+  destroy() {
+    return dbHandler
+      .deleteRecord(this.constructor.storeName, this.id)
+      .then((id) => `Record ${id} deleted`)
+      .catch((error) => `Delete record error: ${error}`);
+  }
 }
 
 export default Record;

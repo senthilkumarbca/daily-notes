@@ -39,10 +39,22 @@ const updateRecord = async () => {
   const id = document.getElementById("get-id").value;
   const expense = await Expense.find(Number(id));
   expense.price = document.getElementById("new-price").value;
-  expense.update();
+  // expense.update();
+  const message = await expense.update();
+  alert(message);
+};
+
+const deleteRecord = async () => {
+  console.log("inside delete");
+  const id = document.getElementById("get-id").value;
+  const expense = await Expense.find(Number(id));
+  // message = expense.destroy()
+  const message = await expense.destroy();
+  alert(message);
 };
 
 document.getElementById("expensesForm").addEventListener("submit", addRecord);
 document.getElementById("getAllButton").addEventListener("click", fetchAll);
 document.getElementById("get-btn").addEventListener("click", findRecord);
 document.getElementById("update-btn").addEventListener("click", updateRecord);
+document.getElementById("del-btn").addEventListener("click", deleteRecord);
