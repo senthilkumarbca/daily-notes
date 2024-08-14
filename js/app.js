@@ -30,9 +30,8 @@ const findRecord = async () => {
   const expense = await Expense.find(Number(id));
   console.log("expense -> ", expense);
   document.getElementById("new-price").value = expense.price;
-  expense.price = "300";
   // console.log("expense changed -> ", expense);
-  expense.update();
+  // expense.update();
 };
 
 const updateRecord = async () => {
@@ -40,6 +39,7 @@ const updateRecord = async () => {
   const id = document.getElementById("get-id").value;
   const expense = await Expense.find(Number(id));
   expense.price = document.getElementById("new-price").value;
+  expense.update();
 };
 
 document.getElementById("expensesForm").addEventListener("submit", addRecord);
