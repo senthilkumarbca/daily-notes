@@ -35,6 +35,7 @@ class IndexedDBHandler {
   }
 
   async addRecord(storeName, data) {
+    console.log("inbside add -> ", data);
     const db = await this.openDB();
     return new Promise((resolve, reject) => {
       const transaction = db.transaction([storeName], "readwrite");
@@ -57,6 +58,34 @@ class IndexedDBHandler {
       request.onsuccess = () => resolve(request.result);
       request.onerror = (event) =>
         reject(`GetAll error: ${event.target.errorCode}`);
+    });
+  }
+
+  async getRecord(storeName, id) {
+    const db = await this.openDB();
+    console.log("inside get record");
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], "readonly");
+      const store = transaction.objectStore(storeName);
+      const request = store.get(id);
+
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = (event) =>
+        reject(`Get error: ${event.target.errorCode}`);
+    });
+  }
+
+  async updateRecord(storeName, data) {
+    const db = await this.openDB();
+    console.log("inside update ", data);
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], "readwrite");
+      const store = transaction.objectStore(storeName);
+      const request = store.put(data);
+
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = (event) =>
+        reject(`Update error: ${event.target.errorCode}`);
     });
   }
 }

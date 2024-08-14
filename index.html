@@ -32,6 +32,19 @@
     <hr>
     <button type="button" id="getAllButton">Get All Records</button>
     <div id="allRecordsDisplay"></div>
+    <input type="number" name="get-id" id="get-id">
+    <button type="button" id="get-btn">Get</button>
+    <label for="new-price">new Price</label>
+    <input type="number" name="new-price" id="new-price" required>
+    <button type="button" id="update-btn">update</button>
+    <hr>
+    <div id="allRecordsDisplayUI">
+        <div class="record">
+            <p class="name">Lunch</p>
+            <p class="price">100</p>
+            <button class="edit-btn" data-record-id="1" type="button">Edit</button>
+        </div>
+    </div>
     <script type="module" src="./js/app.js"></script>
     <script>
         // document.addEventListener("DOMContentLoaded", () => {

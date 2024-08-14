@@ -7,13 +7,17 @@ const addRecord = async (event) => {
   const date = document.getElementById("date").value;
   const category = document.getElementById("category").value;
 
-  const expense = new Expense(itemName, price, category, date);
+  const expense = new Expense({ itemName, price, category, date });
   const message = await expense.save();
   alert(message);
 };
 
 const fetchAll = async () => {
   const expenses = await Expense.all();
+  console.log("expenses ->", expenses);
+  Expense.all().then((records) => {
+    console.log("records -> ", records);
+  });
   document.getElementById("allRecordsDisplay").innerText = JSON.stringify(
     expenses,
     null,
@@ -21,5 +25,24 @@ const fetchAll = async () => {
   );
 };
 
+const findRecord = async () => {
+  const id = document.getElementById("get-id").value;
+  const expense = await Expense.find(Number(id));
+  console.log("expense -> ", expense);
+  document.getElementById("new-price").value = expense.price;
+  expense.price = "300";
+  // console.log("expense changed -> ", expense);
+  expense.update();
+};
+
+const updateRecord = async () => {
+  console.log("insid updateRecord");
+  const id = document.getElementById("get-id").value;
+  const expense = await Expense.find(Number(id));
+  expense.price = document.getElementById("new-price").value;
+};
+
 document.getElementById("expensesForm").addEventListener("submit", addRecord);
 document.getElementById("getAllButton").addEventListener("click", fetchAll);
+document.getElementById("get-btn").addEventListener("click", findRecord);
+document.getElementById("update-btn").addEventListener("click", updateRecord);

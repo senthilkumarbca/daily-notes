@@ -24,3 +24,22 @@
         }
     }
 }
+#allRecordsDisplayUI{
+    max-width: 400px;
+    margin: 0 auto;
+}
+.record{
+    padding: 10px;
+    border: 1px solid #efefef;
+    display: flex;
+    justify-content: space-between;
+}
+.price{
+    color: #1e3b49;
+}
+.edit-btn{
+    border: 0;
+    background: #efefef;
+    padding: 5px;
+    border-radius: 5px;
+}
