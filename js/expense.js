@@ -2,7 +2,7 @@ import Record from "./record.js";
 
 class Expense extends Record {
   static storeName = "expenses";
-  constructor({ id = null, itemName, price, category, date }) {
+  constructor({ id = null, itemName = "", price = "", category = "", date }) {
     super();
     if (id) this.id = id;
     this.itemName = itemName;

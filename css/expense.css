@@ -2,13 +2,44 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
 }
 
-#expensesForm{
-    border: 1px solid #efefef;
+body{
     max-width: 400px;
     margin: 0 auto;
+    background: #000;
+    color: #f9f9f9;
+    padding: 20px 0;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    /* border-bottom: 1px solid #1e3b49; */
+    padding: 5px 10px;
+    align-items: center;
+}
+
+#main{
+    margin-top: 5px;
+}
+
+.btn{
+    border: 0;
+    background: #f9f9f9;
+    padding: 5px 15px;
+    border-radius: 5px;
+    height: 30px;
+
+}
+.btn:hover{
+    background: #007796;
+}
+
+#expenseForm{
+    /* border: 1px solid #efefef; */
     .form-item{
         margin: 10px;
         label{
@@ -17,12 +48,21 @@
         }
         input, select, button{
             width: 100%;
-            padding: 5px;
+            padding: 5px 10px;
+            border: 1px solid #242424;
+            /* border-bottom: 1px solid #242424; */
+            outline: none;
+            background: transparent;
+            color: #f9f9f9;
         }
         button{
             cursor: pointer;
+            background: #007796;
         }
     }
+}
+.show-expense{
+    padding: 10px;
 }
 #allRecordsDisplayUI{
     max-width: 400px;
@@ -42,4 +82,55 @@
     background: #efefef;
     padding: 5px;
     border-radius: 5px;
+}
+
+#notification{
+    display: none;
+    box-sizing: content-box;
+    padding: 15px 25px;
+    font-size: 15px;
+    background: #fff;
+    width: max-content;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+    box-shadow: 10px 10px 10px rgba(0,0,0,0.1), -8px -8px 10px #f9f9f9;
+}
+
+#expenseList{
+    margin-top: 5px;
+}
+
+
+.expense-item{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: .5px solid #1d1c1c;
+}
+
+.expense-item:hover{
+    background: #1d1c1c;
+}
+
+.expenseListheader{
+    display: flex;
+    justify-content: space-between;
+    background: #242424;
+    padding: 5px 10px;
+    border-radius: 25px;
+    font-size: 20px;
+}
+
+.expenseListheader input{
+    background: transparent;
+    color: #f9f9f9;
+    border: 0;
+    outline: none;
+}
+
+.expenseListheader p{
+    color: #007796;
 }

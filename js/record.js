@@ -6,7 +6,9 @@ class Record {
     return dbHandler
       .addRecord(this.constructor.storeName, this)
       .then((id) => `Record added with ID: ${id}`)
-      .catch((error) => `Add record error: ${error}`);
+      .catch((error) => {
+        throw new Error(`Add record error: ${error}`);
+      });
   }
 
   static all() {
@@ -33,7 +35,10 @@ class Record {
     return dbHandler
       .updateRecord(this.constructor.storeName, this)
       .then((id) => `Record with ID: ${id} updated`)
-      .catch((error) => `Update record error: ${error}`);
+      .catch((error) => {
+        console.error(`Update record error: ${error}`);
+        throw new Error(`Sorry, record not updated.`);
+      });
   }
 
   destroy() {
