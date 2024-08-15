@@ -14,6 +14,11 @@ const month = String(today.getMonth() + 1).padStart(2, "0");
 const day = String(today.getDate()).padStart(2, "0");
 const formattedDate = `${year}-${month}-${day}`;
 
+localStorage.setItem(
+  "expenseCategories",
+  JSON.stringify(["food", "snacks", "basic", "movie"])
+);
+
 const capitalize = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
@@ -185,12 +190,8 @@ const renderExpenseFrom = (action, expense) => {
     `;
 
   const categorySelect = document.getElementById("category");
-  const categories = JSON.parse(localStorage.getItem("expenseCategories")) || [
-    "food",
-    "snacks",
-    "basic",
-    "movie",
-  ];
+  const categories =
+    JSON.parse(localStorage.getItem("expenseCategories")) || [];
 
   const emptyOption = document.createElement("option");
   emptyOption.value = "";
