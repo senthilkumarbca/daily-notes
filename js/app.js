@@ -185,8 +185,12 @@ const renderExpenseFrom = (action, expense) => {
     `;
 
   const categorySelect = document.getElementById("category");
-  const categories =
-    JSON.parse(localStorage.getItem("expenseCategories")) || [];
+  const categories = JSON.parse(localStorage.getItem("expenseCategories")) || [
+    "food",
+    "snacks",
+    "basic",
+    "movie",
+  ];
 
   const emptyOption = document.createElement("option");
   emptyOption.value = "";
