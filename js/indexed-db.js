@@ -61,6 +61,20 @@ class IndexedDBHandler {
     });
   }
 
+  async getRecordsByDate(storeName, date) {
+    console.log("storeName ->", storeName);
+    const db = await this.openDB();
+    return new Promise((resolve, reject) => {
+      const transaction = db.transaction([storeName], "readonly");
+      const store = transaction.objectStore(storeName);
+      const index = store.index("date");
+      const request = index.getAll(IDBKeyRange.only(date));
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = (event) =>
+        reject(`Get records by date error: ${event.target.errorCode}`);
+    });
+  }
+
   async getRecord(storeName, id) {
     const db = await this.openDB();
     console.log("inside get record");

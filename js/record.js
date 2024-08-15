@@ -18,6 +18,13 @@ class Record {
       .catch((error) => `Fetch all records error: ${error}`);
   }
 
+  static allByDate(date) {
+    return dbHandler
+      .getRecordsByDate(this.storeName, date)
+      .then((records) => records)
+      .catch((error) => `Fetch all records by date error: ${error}`);
+  }
+
   static find(id) {
     return dbHandler
       .getRecord(this.storeName, id)

@@ -89,13 +89,14 @@ header{
     box-sizing: content-box;
     padding: 15px 25px;
     font-size: 15px;
-    background: #fff;
+    background: #242424ba;
+    border-radius: 25px;
     width: max-content;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    top: 10px;
-    box-shadow: 10px 10px 10px rgba(0,0,0,0.1), -8px -8px 10px #f9f9f9;
+    bottom: 10px;
+    /* box-shadow: 10px 10px 10px rgba(0,0,0,0.1), -8px -8px 10px #f9f9f9; */
 }
 
 #expenseList{
