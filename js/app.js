@@ -144,6 +144,7 @@ const renderExpensesList = async (selectedDate = formattedDate) => {
   // let lastScrollLeft = wrapper.scrollLeft;
   let lastVisibleCardIndex = -1;
   let isScrolling;
+  const isMobile = window.matchMedia("(max-width: 768px)").matches;
 
   // Function to determine which card is visible
   // Function to determine which card is fully visible
@@ -219,7 +220,8 @@ const renderExpensesList = async (selectedDate = formattedDate) => {
   // Initial setup to ensure the second card is visible by default
   // const cards = wrapper.querySelectorAll(".card");
   if (cards.length > 1) {
-    const secondCard = cards[0];
+    const cardIndex = isMobile ? 1 : 0;
+    const secondCard = cards[cardIndex];
     wrapper.scrollLeft = secondCard.offsetLeft;
   }
 };
