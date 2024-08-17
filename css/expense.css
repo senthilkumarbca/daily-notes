@@ -176,8 +176,8 @@ color-scheme: dark;
   box-sizing: border-box;
   flex-shrink: 0;
   text-align: center;
-  /* background: #1616168a; */
-  background: #6565658a;
+  background: #161616d1;
+  /* background: #6565658a; */
   /* transition: opacity 0.3s ease; */
   /* opacity: 0;  */
 }
