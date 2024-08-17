@@ -43,7 +43,7 @@ const addRecord = async (formData) => {
     .save()
     .then((message) => {
       notify(message, "green");
-      renderExpensesList();
+      renderExpensesList(expense.date);
     })
     .catch((error) => {
       notify(error.message, "red");
@@ -64,7 +64,7 @@ const updateRecord = async (formData) => {
     .then((message) => {
       notify(message, "green");
       document.getElementById("notification").style.display = "block";
-      renderExpensesList();
+      renderExpensesList(expense.date);
     })
     .catch((error) => {
       notify(error.message, "red");
