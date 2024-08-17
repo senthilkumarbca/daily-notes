@@ -168,20 +168,10 @@ color-scheme: dark;
 
 .card{
   scroll-snap-align: center;
-  /* background: #544747; */
   height: 100%;
   width: 100%;
-  /* border-radius: 5px; */
-  /* padding: 20px; */
   box-sizing: border-box;
   flex-shrink: 0;
   text-align: center;
-  background: #161616d1;
-  /* background: #6565658a; */
-  /* transition: opacity 0.3s ease; */
-  /* opacity: 0;  */
+  background: #24242475;
 }
-
-/* .card:nth-child(odd) {
-  background: red;
-} */
