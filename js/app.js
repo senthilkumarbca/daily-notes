@@ -84,6 +84,13 @@ const handleFormSubmit = (event) => {
   console.log("insde hadel form", formData.get("action"));
 };
 
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 const renderExpensesList = async (selectedDate = formattedDate) => {
   console.log("selectedDate -> ", selectedDate);
   newBtn.style.display = "block";
@@ -105,8 +112,10 @@ const renderExpensesList = async (selectedDate = formattedDate) => {
         <input type="date" id="date-filter" value="${selectedDate}">
         <p>&#8377; ${totalPrice}</p>
         </div>
-        <div>
-        <ul id="expenseList">
+        <div class="expenseList">
+        <div class="wrapper">
+        <ul class="card card-1"></ul>
+        <ul class="card card-2">
             ${expenses
               .map(
                 (expense) => `
@@ -118,6 +127,8 @@ const renderExpensesList = async (selectedDate = formattedDate) => {
               )
               .join("")}
         </ul>
+        <ul class="card card-3"></ul>
+        </div>
         </div>
     `;
 
@@ -125,6 +136,92 @@ const renderExpensesList = async (selectedDate = formattedDate) => {
     const selectedDate = event.target.value;
     renderExpensesList(selectedDate);
   });
+
+  const wrapper = document.querySelector(".wrapper");
+  const cards = wrapper.querySelectorAll(".card");
+  const firstCard = cards[0];
+  wrapper.scrollLeft = firstCard.offsetLeft;
+  // let lastScrollLeft = wrapper.scrollLeft;
+  let lastVisibleCardIndex = -1;
+  let isScrolling;
+
+  // Function to determine which card is visible
+  // Function to determine which card is fully visible
+  function getFullyVisibleCardIndex() {
+    const cards = wrapper.querySelectorAll(".card");
+    const wrapperRect = wrapper.getBoundingClientRect();
+
+    for (let i = 0; i < cards.length; i++) {
+      const cardRect = cards[i].getBoundingClientRect();
+      if (
+        cardRect.left >= wrapperRect.left &&
+        cardRect.right <= wrapperRect.right
+      ) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  // Debounce function to limit how often the callback is executed
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
+
+  function handleScrollEnd() {
+    const visibleCardIndex = getFullyVisibleCardIndex();
+
+    if (visibleCardIndex !== lastVisibleCardIndex) {
+      console.log(`Fully visible card changed to index: ${visibleCardIndex}`);
+
+      if (visibleCardIndex === 0) {
+        // If the first card is fully visible, add a new card
+        // addNewCard();
+        const parsedDate = new Date(selectedDate);
+        const prevDate = new Date(parsedDate);
+        prevDate.setDate(parsedDate.getDate() - 1);
+        const previousDate = formatDate(prevDate);
+        console.log("Previous date -> ", previousDate);
+        renderExpensesList(previousDate);
+      } else if (visibleCardIndex === 2) {
+        const parsedDate = new Date(selectedDate);
+        const nextDate = new Date(parsedDate);
+        nextDate.setDate(parsedDate.getDate() + 1);
+        const nextDateFormatted = formatDate(nextDate);
+        console.log("Next date -> ", nextDateFormatted);
+        renderExpensesList(nextDateFormatted);
+      }
+
+      lastVisibleCardIndex = visibleCardIndex;
+    }
+  }
+
+  // Scroll event listener with debounce
+  wrapper.addEventListener(
+    "scroll",
+    debounce(() => {
+      isScrolling = true;
+
+      // Stop scrolling check after a short delay
+      setTimeout(() => {
+        if (isScrolling) {
+          handleScrollEnd();
+          isScrolling = false;
+        }
+      }, 100); // Adjust the debounce delay as needed
+    })
+  );
+
+  // Initial setup to ensure the second card is visible by default
+  // const cards = wrapper.querySelectorAll(".card");
+  if (cards.length > 1) {
+    const secondCard = cards[0];
+    wrapper.scrollLeft = secondCard.offsetLeft;
+  }
 };
 
 const showExpense = async (id) => {

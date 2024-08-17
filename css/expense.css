@@ -12,7 +12,6 @@ body {
   margin: 0 auto;
   background: #000;
   color: #f9f9f9;
-  padding: 20px 0;
 }
 
 header {
@@ -21,10 +20,14 @@ header {
   /* border-bottom: 1px solid #1e3b49; */
   padding: 5px 10px;
   align-items: center;
+  height: 45px;
 }
 
 #main {
   margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 45px);
 }
 
 .btn {
@@ -60,7 +63,8 @@ header {
   /* border-bottom: 1px solid #242424; */
   outline: none;
   background: transparent;
-  color: #f9f9f9;
+  /* color: #f9f9f9; */
+color-scheme: dark;
 }
 
 .form-item button {
@@ -106,8 +110,9 @@ header {
   /* box-shadow: 10px 10px 10px rgba(0,0,0,0.1), -8px -8px 10px #f9f9f9; */
 }
 
-#expenseList {
+.expenseList {
   margin-top: 5px;
+  flex-grow: 1;
 }
 
 .expense-item {
@@ -115,7 +120,7 @@ header {
   justify-content: space-between;
   padding: 10px;
   cursor: pointer;
-  border-bottom: 0.5px solid #1d1c1c;
+  /* border-bottom: 0.5px solid #1d1c1c; */
 }
 
 .expense-item:hover {
@@ -129,11 +134,13 @@ header {
   padding: 5px 10px;
   border-radius: 25px;
   font-size: 20px;
+  
 }
 
 .expenseListheader input {
   background: transparent;
-  color: #f9f9f9;
+  color-scheme: dark;
+
   border: 0;
   outline: none;
 }
@@ -141,3 +148,40 @@ header {
 .expenseListheader p {
   color: #007796;
 }
+
+/* .card{
+  height: 100%;
+  padding: 20px 0;
+} */
+
+
+.wrapper{
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow-x: scroll;
+  gap: 20px;
+  background: transparent;
+  scroll-snap-type: x mandatory;
+  
+}
+
+.card{
+  scroll-snap-align: center;
+  /* background: #544747; */
+  height: 100%;
+  width: 100%;
+  /* border-radius: 5px; */
+  /* padding: 20px; */
+  box-sizing: border-box;
+  flex-shrink: 0;
+  text-align: center;
+  /* background: #1616168a; */
+  background: #6565658a;
+  /* transition: opacity 0.3s ease; */
+  /* opacity: 0;  */
+}
+
+/* .card:nth-child(odd) {
+  background: red;
+} */
