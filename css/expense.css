@@ -23,6 +23,13 @@ header {
   height: 45px;
 }
 
+header div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
 #main {
   margin-top: 5px;
   display: flex;
@@ -32,13 +39,9 @@ header {
 
 .btn {
   border: 0;
-  background: #f9f9f9;
   padding: 5px 15px;
   border-radius: 5px;
   height: 30px;
-}
-.btn:hover {
-  background: #007796;
 }
 
 #expenseForm {
@@ -90,7 +93,6 @@ color-scheme: dark;
 }
 .edit-btn {
   border: 0;
-  background: #efefef;
   padding: 5px;
   border-radius: 5px;
 }
@@ -174,4 +176,53 @@ color-scheme: dark;
   flex-shrink: 0;
   text-align: center;
   background: #24242475;
+}
+
+#new-btn{
+  background-image: url("../images/add.png");
+  background-size: cover;
+  cursor: pointer;
+  background-position: center;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  padding: 0;
+}
+
+#back-btn{
+  background-image: url("../images/back.png");
+  background-size: cover;
+  cursor: pointer;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 20px;
+  width: 20px;
+  background-size: 20px 20px;
+  padding: 0;
+
+}
+
+#delete-btn{
+  background-image: url("../images/delete.png");
+  background-size: cover;
+  cursor: pointer;
+  background-position: center;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  padding: 0;
+}
+
+#edit-btn{
+  background-image: url("../images/edit.png");
+  background-size: cover;
+  cursor: pointer;
+  background-position: center;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  padding: 0;
 }
