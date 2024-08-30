@@ -111,6 +111,7 @@ color-scheme: dark;
   left: 50%;
   transform: translateX(-50%);
   bottom: 10px;
+  z-index: 10;
   /* box-shadow: 10px 10px 10px rgba(0,0,0,0.1), -8px -8px 10px #f9f9f9; */
 }
 
@@ -260,6 +261,14 @@ color-scheme: dark;
 #side-nav a{
   display: block;
   text-decoration: none;
+  padding: 10px;
+  color: #f9f9f9;
+  border-bottom: 1px solid #403d3d;
+}
+
+#side-nav .import-label {
+  cursor: pointer;
+  display: block;
   padding: 10px;
   color: #f9f9f9;
   border-bottom: 1px solid #403d3d;

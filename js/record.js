@@ -78,6 +78,35 @@ class Record {
       })
       .catch((error) => `Export records error: ${error}`);
   }
+
+  static async import(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = async (event) => {
+        try {
+          const records = JSON.parse(event.target.result);
+          const storeName = this.storeName;
+
+          for (const record of records) {
+            await dbHandler.addRecord(storeName, record);
+          }
+
+          resolve(
+            `Imported ${records.length} records into store: ${storeName}`
+          );
+        } catch (error) {
+          reject(`Import error: ${error.message}`);
+        }
+      };
+
+      reader.onerror = () => {
+        reject("Failed to read the file.");
+      };
+
+      reader.readAsText(file);
+    });
+  }
 }
 
 export default Record;

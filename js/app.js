@@ -9,6 +9,7 @@ const exportBtn = document.getElementById("export-expenses");
 const sideNav = document.getElementById("side-nav");
 const menuBtn = document.getElementById("menu-btn");
 const menuCloseBtn = document.getElementById("menu-close-btn");
+const importFileBtn = document.getElementById("import-file");
 const title = document.getElementById("title");
 const notifyElement = document.getElementById("notification");
 
@@ -34,6 +35,14 @@ const notify = (message, color) => {
   setTimeout(() => {
     notifyElement.style.display = "none";
   }, 1000);
+};
+
+const openNav = () => {
+  sideNav.style.width = "60%";
+};
+
+const closeNav = () => {
+  sideNav.style.width = "0";
 };
 
 const addRecord = async (formData) => {
@@ -352,12 +361,26 @@ const deleteExpense = async (id) => {
 };
 
 const exportExpenses = async () => {
-  try {
-    await Expense.export();
-    console.log("Expenses exported successfully.");
-  } catch (error) {
-    console.error("Error exporting expenses:", error);
-  }
+  Expense.export()
+    .then(() => {
+      console.log("Expenses exported successfully.");
+    })
+    .catch((error) => {
+      console.error("Error exporting expenses:", error);
+      notify("Error exporting expenses", "red");
+    });
+};
+
+const importExpense = async (file) => {
+  Expense.import(file)
+    .then((result) => {
+      console.log(result);
+      notify(result, "green");
+    })
+    .catch((error) => {
+      console.error("Error importing records:", error);
+      notify("Error importing records", "red");
+    });
 };
 
 content.addEventListener("click", (event) => {
@@ -393,16 +416,22 @@ deleteBtn.addEventListener("click", (event) => {
   deleteExpense(id);
 });
 
-menuBtn.addEventListener("click", (event) => {
-  sideNav.style.width = "60%";
-});
+menuBtn.addEventListener("click", openNav);
 
-menuCloseBtn.addEventListener("click", (event) => {
-  sideNav.style.width = "0";
-});
+menuCloseBtn.addEventListener("click", closeNav);
 
 exportBtn.addEventListener("click", (event) => {
   exportExpenses();
+});
+
+importFileBtn.addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (!file) {
+    console.error("No file selected.");
+    return;
+  }
+  importExpense(file);
+  importFileBtn.value = "";
 });
 
 renderExpensesList();
