@@ -12,6 +12,7 @@ body {
   margin: 0 auto;
   background: #000;
   color: #f9f9f9;
+  position: relative;
 }
 
 header {
@@ -21,9 +22,10 @@ header {
   padding: 5px 10px;
   align-items: center;
   height: 45px;
+  position: relative;
 }
 
-header div {
+header > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -225,4 +227,47 @@ color-scheme: dark;
   background-repeat: no-repeat;
   background-size: 20px 20px;
   padding: 0;
+}
+
+#menu-btn{
+  background-image: url("../images/menu-bar.png");
+  background-size: cover;
+  cursor: pointer;
+  background-position: center;
+  height: 20px;
+  width: 20px;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  padding: 0;
+}
+
+#side-nav{
+  position: absolute;
+  width: 0;
+  height: 100vh;
+  z-index: 2;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background: rgb(34 34 34 / 40%);
+  overflow-x: hidden;
+  transition: 0.5s;
+}
+
+#side-nav > div{
+  padding: 0 5px;
+}
+
+#side-nav a{
+  display: block;
+  text-decoration: none;
+  padding: 10px;
+  color: #f9f9f9;
+  border-bottom: 1px solid #403d3d;
+}
+
+#side-nav #menu-close-btn{
+  position: absolute;
+  right: 10px;
+  font-size: 20px;
+  border-bottom: none;
 }

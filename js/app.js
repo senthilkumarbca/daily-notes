@@ -5,6 +5,10 @@ const newBtn = document.getElementById("new-btn");
 const backBtn = document.getElementById("back-btn");
 const editBtn = document.getElementById("edit-btn");
 const deleteBtn = document.getElementById("delete-btn");
+const exportBtn = document.getElementById("export-expenses");
+const sideNav = document.getElementById("side-nav");
+const menuBtn = document.getElementById("menu-btn");
+const menuCloseBtn = document.getElementById("menu-close-btn");
 const title = document.getElementById("title");
 const notifyElement = document.getElementById("notification");
 
@@ -347,6 +351,15 @@ const deleteExpense = async (id) => {
   }
 };
 
+const exportExpenses = async () => {
+  try {
+    await Expense.export();
+    console.log("Expenses exported successfully.");
+  } catch (error) {
+    console.error("Error exporting expenses:", error);
+  }
+};
+
 content.addEventListener("click", (event) => {
   const clickedItem = event.target.closest(".expense-item");
   if (clickedItem) {
@@ -378,6 +391,18 @@ editBtn.addEventListener("click", (event) => {
 deleteBtn.addEventListener("click", (event) => {
   const id = Number(event.target.getAttribute("data-id"));
   deleteExpense(id);
+});
+
+menuBtn.addEventListener("click", (event) => {
+  sideNav.style.width = "60%";
+});
+
+menuCloseBtn.addEventListener("click", (event) => {
+  sideNav.style.width = "0";
+});
+
+exportBtn.addEventListener("click", (event) => {
+  exportExpenses();
 });
 
 renderExpensesList();

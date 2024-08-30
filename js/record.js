@@ -54,6 +54,30 @@ class Record {
       .then((id) => `Record ${id} deleted`)
       .catch((error) => `Delete record error: ${error}`);
   }
+
+  static async export() {
+    return dbHandler
+      .getAllRecords(this.storeName)
+      .then((records) => {
+        if (records.length === 0) {
+          throw new Error(`No records found in store: ${this.storeName}`);
+        }
+
+        const dataStr = JSON.stringify(records);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `${this.storeName}_records.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
+      })
+      .catch((error) => `Export records error: ${error}`);
+  }
 }
 
 export default Record;
