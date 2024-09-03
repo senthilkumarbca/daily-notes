@@ -16,23 +16,25 @@ function handleClientLoad() {
 function handleCredentialResponse(response) {
   const id_token = response.credential;
 
-  gapi.load("client", () => {
-    gapi.client
-      .init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: [
-          "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
-        ],
-        scope: SCOPES,
-      })
-      .then(() => {
-        startBackup();
-      })
-      .catch((error) => {
-        console.error("Error during client initialization", error);
-      });
-  });
+  gapi.load("client:auth2", initClient);
+}
+
+function initClient() {
+  gapi.client
+    .init({
+      apiKey: API_KEY,
+      clientId: CLIENT_ID,
+      discoveryDocs: [
+        "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+      ],
+      scope: SCOPES,
+    })
+    .then(() => {
+      startBackup();
+    })
+    .catch((error) => {
+      console.error("Error during client initialization", error);
+    });
 }
 
 function exportToJsonFile(jsonData) {
