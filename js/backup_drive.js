@@ -1,5 +1,5 @@
-const CLIENT_ID = secrets.CLIENT_ID;
-const API_KEY = secrets.API_KEY;
+const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
+const API_KEY = "YOUR_GOOGLE_API_KEY";
 const SCOPES = "https://www.googleapis.com/auth/drive.file";
 
 function handleClientLoad() {
