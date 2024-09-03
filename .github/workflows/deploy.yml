@@ -18,10 +18,20 @@ jobs:
         with:
           node-version: "14" # Use the Node.js version you prefer
 
+      - name: Print backup_drive.js before replacement
+        run: |
+          echo "Contents of backup_drive.js before replacement:"
+          cat ./js/backup_drive.js
+
       - name: Replace Secrets in JS
         run: |
           sed -i 's/YOUR_GOOGLE_CLIENT_ID/'"${{ secrets.CLIENT_ID }}"'/g' ./js/backup_drive.js
           sed -i 's/YOUR_GOOGLE_API_KEY/'"${{ secrets.API_KEY }}"'/g' ./js/backup_drive.js
+
+      - name: Print backup_drive.js after replacement
+        run: |
+          echo "Contents of backup_drive.js after replacement:"
+          cat ./js/backup_drive.js
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
