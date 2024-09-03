@@ -435,3 +435,37 @@ importFileBtn.addEventListener("change", (event) => {
 });
 
 renderExpensesList();
+
+// Check if google_client_id and google_api_key are already stored in localStorage
+let google_client_id = localStorage.getItem("google_client_id");
+let google_api_key = localStorage.getItem("google_api_key");
+
+// If either the google_client_id or google_api_key is missing, prompt the user
+if (!google_client_id || !google_api_key) {
+  // Prompt for google_client_id if it's not already stored
+  if (!google_client_id) {
+    google_client_id = prompt("Please enter your google_client_id:");
+    if (google_client_id) {
+      localStorage.setItem("google_client_id", google_client_id);
+    } else {
+      alert("google_client_id is required.");
+    }
+  }
+
+  // Prompt for google_api_key if it's not already stored
+  if (!google_api_key) {
+    google_api_key = prompt("Please enter your google_api_key:");
+    if (google_api_key) {
+      localStorage.setItem("google_api_key", google_api_key);
+    } else {
+      alert("google_api_key is required.");
+    }
+  }
+
+  // Notify the user that the credentials were saved
+  if (google_client_id && google_api_key) {
+    alert("Your google_client_id and google_api_key have been saved.");
+  }
+} else {
+  alert("google_client_id and google_api_key are already saved.");
+}

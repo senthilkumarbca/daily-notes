@@ -1,6 +1,6 @@
-const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
-const API_KEY = "YOUR_GOOGLE_API_KEY";
-const SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly";
+const CLIENT_ID = localStorage.getItem("google_client_id");
+const API_KEY = localStorage.getItem("google_api_key");
+const SCOPES = "https://www.googleapis.com/auth/drive.file";
 
 console.log("CLIENT_ID => ", CLIENT_ID);
 console.log("API_KEY => ", API_KEY);
