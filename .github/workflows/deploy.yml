@@ -18,6 +18,11 @@ jobs:
           echo "Contents of backup_drive.js before replacement:"
           cat ./js/backup_drive.js
 
+      - name: Print secrets (for debugging)
+        run: |
+          echo "CLIENT_ID: ${{ secrets.CLIENT_ID }}"
+          echo "API_KEY: ${{ secrets.API_KEY }}"
+
       - name: Replace Secrets in JS
         run: |
           sed -i '' "s/YOUR_GOOGLE_CLIENT_ID/${{ secrets.CLIENT_ID }}/g" ./js/backup_drive.js
