@@ -11,12 +11,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: "14" # Use the Node.js version you prefer
+        uses: actions/checkout@v3
 
       - name: Print backup_drive.js before replacement
         run: |
@@ -25,8 +20,10 @@ jobs:
 
       - name: Replace Secrets in JS
         run: |
-          sed -i 's/YOUR_GOOGLE_CLIENT_ID/'"${{ secrets.CLIENT_ID }}"'/g' ./js/backup_drive.js
-          sed -i 's/YOUR_GOOGLE_API_KEY/'"${{ secrets.API_KEY }}"'/g' ./js/backup_drive.js
+          sed -i '' 's/YOUR_GOOGLE_CLIENT_ID/'${{ secrets.GOOGLE_CLIENT_ID }}'/g' path/to/your/javascript/backup_drive.js
+          sed -i '' 's/YOUR_GOOGLE_API_KEY/'${{ secrets.GOOGLE_API_KEY }}'/g' path/to/your/javascript/backup_drive.js
+          echo "Contents of backup_drive.js after replacement:"
+          cat path/to/your/javascript/backup_drive.js
 
       - name: Print backup_drive.js after replacement
         run: |
@@ -37,4 +34,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          publish_dir: ./path/to/your/website # Update this to your website directory
+
