@@ -20,8 +20,8 @@ jobs:
 
       - name: Replace Secrets in JS
         run: |
-          sed -i '' 's/YOUR_GOOGLE_CLIENT_ID/'${{ secrets.CLIENT_ID }}'/g' ./js/backup_drive.js
-          sed -i '' 's/YOUR_GOOGLE_API_KEY/'${{ secrets.API_KEY }}'/g' ./js/backup_drive.js
+          sed -i '' "s/YOUR_GOOGLE_CLIENT_ID/${{ secrets.CLIENT_ID }}/g" ./js/backup_drive.js
+          sed -i '' "s/YOUR_GOOGLE_API_KEY/${{ secrets.API_KEY }}/g" ./js/backup_drive.js
 
       - name: Print backup_drive.js after replacement
         run: |
@@ -33,4 +33,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./ # Update this to your website directory
-
