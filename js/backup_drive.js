@@ -1,6 +1,9 @@
 const CLIENT_ID = "YOUR_GOOGLE_CLIENT_ID";
 const API_KEY = "YOUR_GOOGLE_API_KEY";
-const SCOPES = "https://www.googleapis.com/auth/drive.file";
+const SCOPES = "https://www.googleapis.com/auth/drive.metadata.readonly";
+
+console.log("CLIENT_ID => ", CLIENT_ID);
+console.log("API_KEY => ", API_KEY);
 
 function handleClientLoad() {
   google.accounts.id.initialize({
